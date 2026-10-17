@@ -1,0 +1,226 @@
+{
+  "name": "agora",
+  "displayName": "Agora — chat multi-IA",
+  "description": "Toutes les IA gratuites dans ton éditeur : chat qui lit et modifie tes fichiers, explication et correction de code. Marche aussi dans Cursor.",
+  "version": "0.4.0",
+  "publisher": "rvm-lua",
+  "icon": "media/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rvm-lua/Agora"
+  },
+  "homepage": "https://rvm-lua.github.io/Agora/",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Chat",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "ia",
+    "ai",
+    "chat",
+    "gemini",
+    "groq",
+    "openrouter",
+    "fivem",
+    "lua"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "agora",
+          "title": "Agora",
+          "icon": "media/orb.svg"
+        }
+      ]
+    },
+    "views": {
+      "agora": [
+        {
+          "type": "webview",
+          "id": "agora.chat",
+          "name": "Chat"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "agora.explain",
+        "title": "Expliquer ce code",
+        "category": "Agora"
+      },
+      {
+        "command": "agora.fix",
+        "title": "Trouver et corriger le bug",
+        "category": "Agora"
+      },
+      {
+        "command": "agora.refactor",
+        "title": "Refactoriser",
+        "category": "Agora"
+      },
+      {
+        "command": "agora.comment",
+        "title": "Ajouter des commentaires",
+        "category": "Agora"
+      },
+      {
+        "command": "agora.tests",
+        "title": "Écrire des tests",
+        "category": "Agora"
+      },
+      {
+        "command": "agora.ask",
+        "title": "Poser une question sur la sélection…",
+        "category": "Agora"
+      },
+      {
+        "command": "agora.linkKey",
+        "title": "Lier une IA (ajouter une clé)",
+        "category": "Agora"
+      },
+      {
+        "command": "agora.unlinkKey",
+        "title": "Délier une IA",
+        "category": "Agora"
+      },
+      {
+        "command": "agora.newChat",
+        "title": "Nouvelle conversation",
+        "category": "Agora",
+        "icon": "$(add)"
+      },
+      {
+        "command": "agora.openWeb",
+        "title": "Ouvrir Agora sur le web",
+        "category": "Agora",
+        "icon": "$(globe)"
+      },
+      {
+        "command": "agora.undo",
+        "title": "Annuler les dernières modifications d'Agora",
+        "category": "Agora",
+        "icon": "$(discard)"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "submenu": "agora.menu",
+          "group": "1_agora",
+          "when": "editorHasSelection"
+        }
+      ],
+      "agora.menu": [
+        {
+          "command": "agora.explain",
+          "group": "1@1"
+        },
+        {
+          "command": "agora.fix",
+          "group": "1@2"
+        },
+        {
+          "command": "agora.refactor",
+          "group": "1@3"
+        },
+        {
+          "command": "agora.comment",
+          "group": "1@4"
+        },
+        {
+          "command": "agora.tests",
+          "group": "1@5"
+        },
+        {
+          "command": "agora.ask",
+          "group": "2@1"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "agora.newChat",
+          "when": "view == agora.chat",
+          "group": "navigation@1"
+        },
+        {
+          "command": "agora.openWeb",
+          "when": "view == agora.chat",
+          "group": "navigation@2"
+        }
+      ]
+    },
+    "submenus": [
+      {
+        "id": "agora.menu",
+        "label": "Agora"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "agora.ask",
+        "key": "ctrl+alt+a",
+        "mac": "cmd+alt+a",
+        "when": "editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "title": "Agora",
+      "properties": {
+        "agora.provider": {
+          "type": "string",
+          "default": "pollinations",
+          "enum": [
+            "pollinations",
+            "groq",
+            "gemini",
+            "openrouter",
+            "mistral",
+            "cerebras",
+            "openai",
+            "anthropic",
+            "xai"
+          ],
+          "enumDescriptions": [
+            "Agora Gratuit (sans clé)",
+            "Groq (gratuit, ultra-rapide)",
+            "Google Gemini (gratuit)",
+            "OpenRouter (modèles :free)",
+            "Mistral (gratuit)",
+            "Cerebras (gratuit)",
+            "ChatGPT (payant)",
+            "Claude (payant)",
+            "Grok (payant)"
+          ],
+          "description": "IA utilisée par défaut."
+        },
+        "agora.model": {
+          "type": "string",
+          "default": "",
+          "description": "Modèle précis (laisser vide pour le choix automatique)."
+        },
+        "agora.includeFile": {
+          "type": "boolean",
+          "default": true,
+          "description": "Joindre automatiquement le fichier ouvert (ou la sélection) comme contexte."
+        },
+        "agora.instructions": {
+          "type": "string",
+          "default": "Réponds en français. Donne du code complet et fonctionnel.",
+          "description": "Instructions envoyées à chaque conversation."
+        },
+        "agora.autoApply": {
+          "type": "boolean",
+          "default": false,
+          "description": "Mode Auto : Agora applique ses modifications de fichiers sans demander (tu peux toujours annuler)."
+        }
+      }
+    }
+  }
+}
