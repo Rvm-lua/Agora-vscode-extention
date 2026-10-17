@@ -1,24 +1,53 @@
+<div align="center">
+
+<img src="media/icon.png" width="88" alt="Logo Agora">
+
 # Agora pour VS Code et Cursor
 
-Toutes les IA dans ton éditeur, avec **Agora Gratuit** qui marche sans clé ni compte.
+**Un agent de code dans ton éditeur, avec toutes les IA gratuites.**
+
+[**⬇ Télécharger agora-vscode.vsix**](https://github.com/rvm-lua/Agora/releases/latest/download/agora-vscode.vsix) · [Site Agora](https://rvm-lua.github.io/Agora/) · [Tous les projets](https://github.com/rvm-lua/Agora) · [Signaler un bug](https://github.com/rvm-lua/Agora-vscode-extention/issues)
+
+</div>
+
+---
+
+## Installer
+1. Télécharge [**agora-vscode.vsix**](https://github.com/rvm-lua/Agora/releases/latest/download/agora-vscode.vsix).
+2. Dans VS Code ou Cursor : `Ctrl+Maj+P` → **Extensions: Install from VSIX…** → choisis le fichier.
+3. Clique sur l'icône **Agora** dans la barre de gauche.
 
 ## Ce que ça fait
-- **Chat Agora** dans la barre latérale (icône Agora à gauche).
-- **Agora lit et modifie les fichiers de ton projet** (dossier ouvert) : il lit ce dont il a besoin, puis propose ses modifications fichier par fichier.
-  - Mode **Demander** : tu vois les changements (+/−), tu cliques **Voir** pour le diff, puis **Appliquer** ou **Tout appliquer**.
-  - Mode **Auto** : les modifications sont appliquées directement.
-  - Dans les deux cas, **Annuler** remet tes fichiers comme avant.
-- **Clic droit sur du code sélectionné → Agora** : Expliquer, Corriger, Refactoriser, Commenter, Tests, ou poser ta question (`Ctrl+Alt+A`).
-- Le **fichier ouvert ou la sélection** est envoyé automatiquement comme contexte (désactivable d'un clic).
-- Sur chaque bloc de code de la réponse : **Copier**, **Insérer**, **Remplacer la sélection**, **Nouveau fichier**.
+- **Agora modifie tes fichiers directement**, comme l'extension Claude Code : il lit le projet ouvert, cherche le code concerné, puis propose chaque modification avec un diff rouge / vert dans le chat.
+  - **Accepter** : le fichier est enregistré tout de suite.
+  - **Toujours accepter** : plus de question jusqu'à la prochaine discussion.
+  - **Refuser** : rien ne change, l'IA propose autre chose.
+  - **Annuler** remet les fichiers comme avant.
+- **Clic droit sur du code → Agora** : Expliquer, Corriger, Refactoriser, Commenter, Écrire des tests, ou poser ta question (`Ctrl+Alt+A`).
+- Le **fichier ouvert ou la sélection** est envoyé comme contexte (désactivable d'un clic).
 - **Codes secrets** : tape `/` dans le chat (`/debug`, `/review`, `/refactor`, `/security`, `/fxmanifest`…).
-- IA disponibles : Agora Gratuit, Groq, Gemini, OpenRouter, Mistral, Cerebras, ChatGPT, Claude, Grok.
+- IA : **Agora Gratuit** (sans clé), Groq, Gemini, OpenRouter, Mistral, Cerebras, ChatGPT, Claude, Grok.
 
 ## Lier une IA plus rapide (gratuit)
-Palette de commandes (`Ctrl+Maj+P`) → **Agora : Lier une IA** → choisis Groq, Gemini ou OpenRouter → crée ta clé sur leur site → colle-la.
+`Ctrl+Maj+P` → **Agora : Lier une IA** → choisis **Groq** ou **Gemini** → crée ta clé sur leur site → colle-la.
+Pour modifier des fichiers, ces deux-là sont bien plus fiables qu'Agora Gratuit.
 Les clés sont rangées dans le coffre sécurisé de l'éditeur, jamais dans tes fichiers.
 
-## Confidentialité
-Le code que tu envoies part directement de ton éditeur vers l'IA choisie. Rien ne passe par un serveur Agora.
+## Réglages
+| Réglage | Rôle |
+|---|---|
+| `agora.provider` / `agora.model` | IA et modèle utilisés |
+| `agora.autoApply` | Appliquer les modifications sans demander |
+| `agora.includeFile` | Envoyer le fichier ouvert comme contexte |
+| `agora.instructions` | Instructions ajoutées à chaque demande |
 
-Site web : https://rvm-lua.github.io/Agora/ · Orbes : thinking-orbs (Jakub Antalik, MIT).
+## Développer
+```
+npx @vscode/vsce package      # crée agora-x.y.z.vsix
+```
+Pour tester : ouvre ce dossier dans VS Code et appuie sur `F5`.
+
+## Confidentialité
+Le code part directement de ton éditeur vers l'IA choisie, sans passer par un serveur Agora. Détails : [politique de confidentialité](https://rvm-lua.github.io/Agora/confidentialite.html).
+
+Orbes animées : [thinking-orbs](https://github.com/Jakubantalik/thinking-orbs) (Jakub Antalik, MIT).
